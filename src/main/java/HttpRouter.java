@@ -22,7 +22,7 @@ class HttpRouter extends AllDirectives {
                                             cacheActor.tell(msg, ActorRef.noSender());
                                             return complete(AkkaAppConstants.START_TEST_MESSAGE);
                                         })))),
-                path(ZookeeperAppConstants.SERVER_GET_PATH, () ->
+                path(ZookeeperAppConstants.SERVER_COUNT_PATH, () ->
                         get(() ->
                                 parameter(AkkaAppConstants.PACKAGE_ID_PARAMETER_NAME, (packageId) ->
                                 {
