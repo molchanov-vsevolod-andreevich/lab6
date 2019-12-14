@@ -1,75 +1,33 @@
-import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
-import akka.http.javadsl.IncomingConnection;
-import akka.http.javadsl.model.HttpRequest;
-import akka.http.javadsl.model.HttpResponse;
-import akka.http.javadsl.model.Query;
+import akka.http.javadsl.marshallers.jackson.Jackson;
+import akka.http.javadsl.server.AllDirectives;
+import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
-import akka.stream.ActorMaterializer;
-import akka.stream.javadsl.Flow;
-import akka.stream.javadsl.Keep;
-import akka.stream.javadsl.Sink;
-import akka.stream.javadsl.Source;
-import org.asynchttpclient.AsyncHttpClient;
+import scala.concurrent.Future;
 
-import java.util.Collections;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.CompletionStage;
+class HttpRouter extends AllDirectives {
+    private final ActorRef cacheActor;
 
-public class Anonimizer {
-    ActorRef cacheActor;
-
-    public Anonimizer(ActorSystem system) {
-        cacheActor = system.actorOf(CacheActor.props(), AkkaStreamsAppConstants.CACHE_ACTOR_NAME);
+    HttpRouter(ActorSystem system) {
+        cacheActor = system.actorOf(CacheActor.props(), ZookeeperAppConstants.ROUTE_ACTOR_NAME);
     }
 
-    public Flow<HttpRequest, HttpResponse, NotUsed> createRouteFlow(AsyncHttpClient asyncHttpClient, ActorMaterializer materializer) {
-        Sink<TestPing, CompletionStage<Long>> testSink = createSink(asyncHttpClient);
-
-        return Flow.of(HttpRequest.class)
-                .map(req -> {
-                    Query requestQuery = req.getUri().query();
-                    String url = requestQuery.getOrElse(AkkaStreamsAppConstants.TEST_URL_KEY, "");
-                    Integer count = Integer.parseInt(requestQuery.getOrElse(AkkaStreamsAppConstants.COUNT_KEY, "-1"));
-                    return new TestPing(url, count);
-                })
-                .mapAsync(AkkaStreamsAppConstants.PARALLELISM, testPing ->
-                        Patterns.ask(cacheActor, new CacheActor.GetMessage(testPing.getUrl()), AkkaStreamsAppConstants.TIMEOUT)
-                                .thenCompose(req -> {
-                                    ResultPing res = (ResultPing) req;
-                                    if (res.getPing() != null) {
-                                        return CompletableFuture.completedFuture(res);
-                                    } else {
-                                        return Source.from(Collections.singletonList(testPing))
-                                                .toMat(testSink, Keep.right())
-                                                .run(materializer)
-                                                .thenApply(time -> new ResultPing(testPing.getUrl(), time / testPing.getCount() / AkkaStreamsAppConstants.ONE_SECOND_IN_NANO_SECONDS));
-                                    }
-                                }))
-                .map(res -> {
-                    cacheActor.tell(res, ActorRef.noSender());
-                    return HttpResponse.create()
-                            .withEntity(res.getUrl() + " " + res.getPing());
-                });
-    }
-
-    public Sink<TestPing, CompletionStage<Long>> createSink(AsyncHttpClient asyncHttpClient) {
-        Sink<Long, CompletionStage<Long>> fold = Sink.fold(0L, Long::sum);
-
-        return Flow.<TestPing>create()
-                .mapConcat(testPing -> Collections.nCopies(testPing.getCount(), testPing.getUrl()))
-                .mapAsync(AkkaStreamsAppConstants.PARALLELISM, url -> {
-                    long startTime = System.nanoTime();
-                    return asyncHttpClient
-                            .prepareGet(url)
-                            .execute()
-                            .toCompletableFuture()
-                            .thenApply(response -> System.nanoTime() - startTime);
-                })
-                .toMat(fold, Keep.right());
-    }
-
-    public IncomingConnection createRoute() {
+    Route createRoute() {
+        return route(
+                path(ZookeeperAppConstants.SERVER_POST_PATH, () ->
+                        route(
+                                post(() ->
+                                        entity(Jackson.unmarshaller(TestPackageRequest.class), msg -> {
+                                            cacheActor.tell(msg, ActorRef.noSender());
+                                            return complete(AkkaAppConstants.START_TEST_MESSAGE);
+                                        })))),
+                path(ZookeeperAppConstants.SERVER_GET_PATH, () ->
+                        get(() ->
+                                parameter(AkkaAppConstants.PACKAGE_ID_PARAMETER_NAME, (packageId) ->
+                                {
+                                    Future<Object> res = Patterns.ask(cacheActor, new StoreActor.GetMessage(packageId), AkkaAppConstants.TIMEOUT);
+                                    return completeOKWithFuture(res, Jackson.marshaller());
+                                }))));
     }
 }
