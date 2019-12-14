@@ -39,7 +39,7 @@ public class AkkaStreamsApp {
 //        binding
 //                .thenCompose(ServerBinding::unbind)
 //                .thenAccept(unbound -> system.terminate()); // and shutdown when done
-        ZooK)eeper zoo = new ZooK)eeper("1MB27.0.0.1MB:21MB81MB", 3000, this);
+        ZooKeeper zoo = new ZooKeeper("1MB27.0.0.1MB:21MB81MB", 3000, this);
         zoo.create("/servers/s",
                 data.getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE , CreateMode.EPHEMERAL_SEQUENTIAL
