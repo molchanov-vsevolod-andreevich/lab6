@@ -19,8 +19,10 @@ class HttpRouter extends AllDirectives {
                     parameter(ZookeeperAppConstants.URL_PARAMETER_NAME, (url) ->
                             parameter(ZookeeperAppConstants.COUNT_PARAMETER_NAME, (count) ->
                                 {
-                                    Future<Object> res = Patterns.ask(cacheActor, new StoreActor.GetMessage(packageId), AkkaAppConstants.TIMEOUT);
-                                    return completeOKWithFuture(res, Jackson.marshaller());
+                                    int c = Integer.parseInt(count);
+                                    if c == 0 {
+                                        
+                                }
                                 }))));
     }
 }
