@@ -1,6 +1,7 @@
 import akka.NotUsed;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
+import akka.http.javadsl.IncomingConnection;
 import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.http.javadsl.model.Query;
@@ -67,5 +68,8 @@ public class Anonimizer {
                             .thenApply(response -> System.nanoTime() - startTime);
                 })
                 .toMat(fold, Keep.right());
+    }
+
+    public IncomingConnection createRoute() {
     }
 }
