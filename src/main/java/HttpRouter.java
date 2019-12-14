@@ -20,9 +20,9 @@ class HttpRouter extends AllDirectives {
                             parameter(ZookeeperAppConstants.COUNT_PARAMETER_NAME, (count) ->
                                 {
                                     int c = Integer.parseInt(count);
-                                    if c == 0 {
+                                    if (c != 0) {
                                         
-                                }
+                                    }
                                 }))));
     }
 }
