@@ -7,7 +7,7 @@ class AkkaStreamsAppConstants {
 
     // Server Constants
     static final String HOST = "localhost";
-    static final int PORT = 8080;
+    static final int PORT = 2181;
 
     // Messages
     static final String START_MESSAGE = "start!";
