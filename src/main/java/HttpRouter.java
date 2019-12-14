@@ -15,19 +15,11 @@ class HttpRouter extends AllDirectives {
 
     Route createRoute() {
         return route(
-                path(ZookeeperAppConstants.SERVER_URL_PATH, () ->
-                        route(
-                                post(() ->
-                                        entity(Jackson.unmarshaller(TestPackageRequest.class), msg -> {
-                                            cacheActor.tell(msg, ActorRef.noSender());
-                                            return complete(AkkaAppConstants.START_TEST_MESSAGE);
-                                        })))),
-                path(ZookeeperAppConstants.SERVER_COUNT_PATH, () ->
-                        get(() ->
-                                parameter(AkkaAppConstants.PACKAGE_ID_PARAMETER_NAME, (packageId) ->
-                                {
-                                    Future<Object> res = Patterns.ask(cacheActor, new StoreActor.GetMessage(packageId), AkkaAppConstants.TIMEOUT);
-                                    return completeOKWithFuture(res, Jackson.marshaller());
-                                }))));
+            get(() ->
+                    parameter(ZookeeperAppConstants.PACKAGE_ID_PARAMETER_NAME, (packageId) ->
+                    {
+                        Future<Object> res = Patterns.ask(cacheActor, new StoreActor.GetMessage(packageId), AkkaAppConstants.TIMEOUT);
+                        return completeOKWithFuture(res, Jackson.marshaller());
+                    })));
     }
 }
