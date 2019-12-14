@@ -15,7 +15,7 @@ class HttpRouter extends AllDirectives {
 
     Route createRoute() {
         return route(
-                path(ZookeeperAppConstants.SERVER_POST_PATH, () ->
+                path(ZookeeperAppConstants.SERVER_URL_PATH, () ->
                         route(
                                 post(() ->
                                         entity(Jackson.unmarshaller(TestPackageRequest.class), msg -> {
