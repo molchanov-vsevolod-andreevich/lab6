@@ -1,22 +1,13 @@
-import akka.NotUsed;
-import akka.actor.ActorSystem;
-import akka.http.javadsl.ConnectHttp;
-import akka.http.javadsl.Http;
-import akka.http.javadsl.ServerBinding;
-import akka.http.javadsl.model.HttpRequest;
-import akka.http.javadsl.model.HttpResponse;
-import akka.stream.ActorMaterializer;
-import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.CreateMode;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooDefs;
+import org.apache.zookeeper.ZooKeeper;
 
-import java.io.IOException;
-import java.util.concurrent.CompletionStage;
+import java.util.List;
 
-import org.asynchttpclient.AsyncHttpClient;
-import org.asynchttpclient.Dsl;
+public class ZookeeperApp {
 
-public class AkkaStreamsApp {
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws KeeperException, InterruptedException {
         ZooKeeper zoo = new ZooKeeper("127.0.0.1:2181", 3000, this);
         zoo.create("/servers/s",
                 "data".getBytes(),

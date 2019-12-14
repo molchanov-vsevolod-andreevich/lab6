@@ -1,6 +1,6 @@
 import java.time.Duration;
 
-class AkkaStreamsAppConstants {
+class ZookeeperAppConstants {
     // Actors Constants
     static final String ACTOR_SYSTEM_NAME = "routes";
     static final String CACHE_ACTOR_NAME = "cacheActor";
