@@ -20,9 +20,9 @@ public class ZookeeperApp {
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
 
-        Anonimizer instance = new Anonimizer(system);
+        Anonimizer anonimizer = new Anonimizer(system);
 
-        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = instance.createRouteFlow(asyncHttpClient, materializer);
+        final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow = anonimizer.createRouteFlow(asyncHttpClient, materializer);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(ZookeeperAppConstants.HOST, ZookeeperAppConstants.PORT),
