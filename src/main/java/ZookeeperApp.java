@@ -42,7 +42,8 @@ public class AkkaStreamsApp {
         ZooKeeper zoo = new ZooKeeper("127.0.0.1:2181", 3000, this);
         zoo.create("/servers/s",
                 "data".getBytes(),
-                ZooDefs.Ids.OPEN_ACL_UNSAFE , CreateMode.EPHEMERAL_SEQUENTIAL
+                ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                CreateMode.EPHEMERAL_SEQUENTIAL
         );
         List<String> servers = zoo.getChildren("/servers", this); for (String s : servers) {
             byte[] data = zoo.getData("/servers/" + s, false, null);
