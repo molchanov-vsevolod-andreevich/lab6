@@ -8,6 +8,7 @@ class ZookeeperAppConstants {
     // Server Constants
     static final String HOST = "localhost";
     static final int PORT = 2181;
+    static final String PACKAGE_ID_PARAMETER_NAME = "packageId";
 
     // Messages
     static final String START_MESSAGE = "start!";
