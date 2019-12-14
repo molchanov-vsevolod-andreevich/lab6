@@ -9,6 +9,7 @@ class ZookeeperAppConstants {
     static final String HOST = "localhost";
     static final int PORT = 2181;
     static final String URL_PARAMETER_NAME = "url";
+    static final String COUNT_PARAMETER_NAME = "count";
 
     // Messages
     static final String START_MESSAGE = "start!";
