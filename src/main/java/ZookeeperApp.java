@@ -8,21 +8,22 @@ import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
 
+import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
 public class ZookeeperApp {
 
-    public static void main(String[] args) {
-        System.out.println(ZookeeperAppConstants.START_MESSAGE);
-
+    public static void main(String[] args) throws IOException {
         int serverPort;
 
         if (args.length < 1) {
-            System.err.println();
+            System.err.println(ZookeeperAppConstants.NOT_ENOUGH_ARGS_ERROR_MESSAGE);
             return;
         } else {
-            serverPort = Integer.parseInt(args[ZookeeperAppConstants.SERVER_PORT_IDX]);
+            serverPort = Integer.parseInt(args[ZookeeperAppConstants.SERVER_PORT_IDX_IN_ARGS]);
         }
+
+        System.out.println(ZookeeperAppConstants.START_MESSAGE);
 
         ActorSystem system = ActorSystem.create(ZookeeperAppConstants.ACTOR_SYSTEM_NAME);
 
@@ -35,7 +36,7 @@ public class ZookeeperApp {
                 instance.createRoute(http).flow(system, materializer);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
-                ConnectHttp.toHost(ZookeeperAppConstants.HOST, ZookeeperAppConstants.PORT),
+                ConnectHttp.toHost(ZookeeperAppConstants.HOST, serverPort),
                 materializer
         );
         System.out.println(ZookeeperAppConstants.START_SERVER_MESSAGE);
