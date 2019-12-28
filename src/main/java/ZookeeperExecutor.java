@@ -17,11 +17,11 @@ public class ZookeeperExecutor implements Watcher {
                 this
         );
 
-        String serverUrl = ZookeeperAppConstants. Integer.toString(serverPort);
+        String serverUrl = ZookeeperAppConstants.HOST + ":" + Integer.toString(serverPort);
 
         zoo.create(
                 ZookeeperAppConstants.SERVER_NODE,
-                .getBytes(),
+                serverUrl.getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL
         );
