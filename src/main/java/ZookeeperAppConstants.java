@@ -23,4 +23,5 @@ class ZookeeperAppConstants {
     static final Duration TIMEOUT = Duration.ofMillis(5000);
     static final int PARALLELISM = 1;
     static final long ONE_SECOND_IN_NANO_SECONDS = 1_000_000L;
+    static final int SERVER_PORT_IDX = 0;
 }

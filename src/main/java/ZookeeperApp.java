@@ -15,6 +15,15 @@ public class ZookeeperApp {
     public static void main(String[] args) {
         System.out.println(ZookeeperAppConstants.START_MESSAGE);
 
+        int serverPort;
+
+        if (args.length < 1) {
+            System.err.println();
+            return;
+        } else {
+            serverPort = Integer.parseInt(args[ZookeeperAppConstants.SERVER_PORT_IDX]);
+        }
+
         ActorSystem system = ActorSystem.create(ZookeeperAppConstants.ACTOR_SYSTEM_NAME);
 
         final Http http = Http.get(system);

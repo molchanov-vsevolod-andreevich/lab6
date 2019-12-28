@@ -26,9 +26,9 @@ class HttpRouter extends AllDirectives {
                                 {
                                     int redirectCount = Integer.parseInt(count);
                                     if (redirectCount != 0) {
-                                        return completeOKWithFuture(curlUrl(http, url));
+                                        return completeWithFuture(curlUrl(http, url));
                                     } else {
-                                        return completeOKWithFuture(redirect(http, url, redirectCount));
+                                        return completeWithFuture(redirect(http, url, redirectCount));
                                     }
                                 }))));
     }
@@ -39,15 +39,15 @@ class HttpRouter extends AllDirectives {
 
     private CompletionStage<HttpResponse> redirect(Http http, String url, int count) {
         return Patterns.ask(cacheActor, new CacheActor.GetRandomServer(), ZookeeperAppConstants.TIMEOUT)
-                .thenCompose(randServer -> )
                 .thenCompose(randServer -> {
-                    String redirectUrl = Uri.create(randServer)
+                    String redirectUrl = Uri.create((String) randServer)
                             .query(Query.create(
                                     Pair.create(ZookeeperAppConstants.URL_PARAMETER_NAME, url),
                                     Pair.create(ZookeeperAppConstants.COUNT_PARAMETER_NAME, Integer.toString(count - 1))
                             ))
                             .toString();
+                    System.out.println("curl " + redirectUrl);
                     return curlUrl(http, redirectUrl);
-                })
+                });
     }
 }
