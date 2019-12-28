@@ -20,6 +20,6 @@ public class ZookeeperClass implements Watcher {
 
     @Override
     public void process(WatchedEvent watchedEvent) {
-        if (watchedEvent.getState())
+        if (watchedEvent.get)
     }
 }
