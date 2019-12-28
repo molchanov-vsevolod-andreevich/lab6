@@ -39,6 +39,10 @@ class HttpRouter extends AllDirectives {
     }
 
     private CompletionStage<HttpResponse> redirect(Http http, String url, String count) {
-        return Patterns.ask(cacheActor, new CacheActor.GetMessage())
+        return Patterns.ask(cacheActor, new CacheActor.GetRandomServer(), ZookeeperAppConstants.TIMEOUT)
+                .thenCompose(randServer -> {
+                    
+                    return curlUrl(http, redirectUrl);
+                })
     }
 }

@@ -22,7 +22,7 @@ public class CacheActor extends AbstractActor {
                     Long result = req.getPing();
                     store.put(url, result);
                 })
-                .match(CacheActor.GetMessage.class, msg -> {
+                .match(CacheActor.GetRandomServer.class, msg -> {
                     int randServerIdx = new Random().nextInt(serversList.size());
                     String randServer = serversList.get(randServerIdx);
                     System.out.println("Redirect to " + randServer);
@@ -31,7 +31,7 @@ public class CacheActor extends AbstractActor {
                 .build();
     }
 
-    static class GetMessage {
+    static class GetRandomServer {
     }
 
 }
