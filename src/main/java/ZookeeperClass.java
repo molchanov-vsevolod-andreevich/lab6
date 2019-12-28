@@ -20,7 +20,7 @@ public class ZookeeperClass implements Watcher {
 
     @Override
     public void process(WatchedEvent watchedEvent) {
-        if (watchedEvent.getType() == Event.EventType.None) {
+        if (watchedEvent.getType() != Event.EventType.None) {
 
         }
     }
