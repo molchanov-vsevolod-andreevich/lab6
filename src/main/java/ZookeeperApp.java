@@ -7,13 +7,14 @@ import akka.http.javadsl.model.HttpRequest;
 import akka.http.javadsl.model.HttpResponse;
 import akka.stream.ActorMaterializer;
 import akka.stream.javadsl.Flow;
+import org.apache.zookeeper.KeeperException;
 
 import java.io.IOException;
 import java.util.concurrent.CompletionStage;
 
 public class ZookeeperApp {
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, KeeperException, InterruptedException {
         int serverPort;
 
         if (args.length < 1) {
@@ -32,7 +33,7 @@ public class ZookeeperApp {
 
         HttpRouter instance = new HttpRouter(system);
 
-        ZookeeperClass zookeeper = new ZookeeperClass(instance.getCacheActor());
+        ZookeeperClass zookeeper = new ZookeeperClass(instance.getCacheActor(), serverPort);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow =
                 instance.createRoute(http).flow(system, materializer);

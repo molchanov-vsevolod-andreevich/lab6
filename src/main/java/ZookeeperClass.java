@@ -8,7 +8,7 @@ public class ZookeeperClass implements Watcher {
     private ZooKeeper zoo;
     private ActorRef cacheActor;
 
-    public ZookeeperClass(ActorRef cacheActor) throws IOException, KeeperException, InterruptedException {
+    public ZookeeperClass(ActorRef cacheActor, int serverPort) throws IOException, KeeperException, InterruptedException {
         this.cacheActor = cacheActor;
         zoo = new ZooKeeper(
                 ZookeeperAppConstants.ZOOKEEPER_SERVER + ":" + ZookeeperAppConstants.ZOOKEEPER_PORT,
@@ -18,7 +18,7 @@ public class ZookeeperClass implements Watcher {
 
         zoo.create(
                 ZookeeperAppConstants.SERVERS_NODE,
-                "data".getBytes(),
+                serverPort..getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL
         );
