@@ -2,9 +2,7 @@ import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
 import akka.http.javadsl.marshallers.jackson.Jackson;
-import akka.http.javadsl.model.HttpRequest;
-import akka.http.javadsl.model.HttpResponse;
-import akka.http.javadsl.model.RequestEntity;
+import akka.http.javadsl.model.*;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
@@ -41,7 +39,10 @@ class HttpRouter extends AllDirectives {
     private CompletionStage<HttpResponse> redirect(Http http, String url, String count) {
         return Patterns.ask(cacheActor, new CacheActor.GetRandomServer(), ZookeeperAppConstants.TIMEOUT)
                 .thenCompose(randServer -> {
-                    
+                    String redirectUrl = Uri.create(randServer)
+                            .query(Query.create(
+                                    
+                            ))
                     return curlUrl(http, redirectUrl);
                 })
     }
