@@ -34,6 +34,7 @@ public class ZookeeperExecutor implements Watcher {
 
             for (String s : serversNodes) {
                 byte[] data = zoo.getData(ZookeeperAppConstants.SERVERS_NODES_PATH + s, false, null);
+                
             }
 
         } catch (KeeperException | InterruptedException e) {
