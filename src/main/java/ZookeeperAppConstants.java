@@ -15,6 +15,8 @@ class ZookeeperAppConstants {
     static final String START_MESSAGE = "start!";
     static final String START_SERVER_MESSAGE = "Server online at http://localhost:8080/\nPress RETURN to stop...\n";
     static final String NOT_ENOUGH_ARGS_ERROR_MESSAGE = "Not enough arguments. Run program with argument [serverPort]";
+    static final String REDIRECT_MESSAGE = "Redirect to ";
+    static final String CURL_MESSAGE = "curl ";
 
     // HTTP query parameters
     static final String URL_PARAMETER_NAME = "url";

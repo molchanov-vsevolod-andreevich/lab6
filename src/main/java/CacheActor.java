@@ -17,15 +17,13 @@ public class CacheActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-//                .match(ResultPing.class, req -> {
-//                    String url = req.getUrl();
-//                    Long result = req.getPing();
-//                    store.put(url, result);
-//                })
+                .match(Servers.class, req -> {
+
+                })
                 .match(CacheActor.GetRandomServer.class, msg -> {
                     int randServerIdx = new Random().nextInt(serversList.size());
                     String randServer = serversList.get(randServerIdx);
-                    System.out.println("Redirect to " + randServer);
+                    System.out.println(ZookeeperAppConstants.REDIRECT_MESSAGE + randServer);
                     sender().tell(randServer, self());
                 })
                 .build();

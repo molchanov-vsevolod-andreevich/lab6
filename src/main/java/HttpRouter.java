@@ -46,7 +46,7 @@ class HttpRouter extends AllDirectives {
                                     Pair.create(ZookeeperAppConstants.COUNT_PARAMETER_NAME, Integer.toString(count - 1))
                             ))
                             .toString();
-                    System.out.println("curl " + redirectUrl);
+                    System.out.println(ZookeeperAppConstants.CURL_MESSAGE + redirectUrl);
                     return curlUrl(http, redirectUrl);
                 });
     }
