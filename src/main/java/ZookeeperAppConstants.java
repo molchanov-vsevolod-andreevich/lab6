@@ -17,6 +17,7 @@ class ZookeeperAppConstants {
     static final String NOT_ENOUGH_ARGS_ERROR_MESSAGE = "Not enough arguments. Run program with argument [serverPort]";
     static final String REDIRECT_MESSAGE = "Redirect to ";
     static final String CURL_MESSAGE = "curl ";
+    static final String WATCHER_MESSAGE = "";
 
     // HTTP query parameters
     static final String URL_PARAMETER_NAME = "url";
