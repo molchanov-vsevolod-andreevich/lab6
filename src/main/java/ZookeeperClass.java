@@ -2,6 +2,7 @@ import akka.actor.ActorRef;
 import org.apache.zookeeper.*;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ZookeeperClass implements Watcher {
     private ZooKeeper zoo;
@@ -25,6 +26,6 @@ public class ZookeeperClass implements Watcher {
 
     @Override
     public void process(WatchedEvent watchedEvent) {
-        
+        List<String> servers = zoo.getChildren("/servers", this);
     }
 }
