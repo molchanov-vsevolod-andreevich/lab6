@@ -32,7 +32,7 @@ public class ZookeeperExecutor implements Watcher {
 
             List<String> serversList = new ArrayList<>();
 
-            for (String serverNode : serversNodes) {
+            for (String s : serversNodes) {
                 byte[] data = zoo.getData(ZookeeperAppConstants.SERVERS_NODES_PATH + s, false, null);
             }
 
