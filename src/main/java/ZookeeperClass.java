@@ -18,7 +18,7 @@ public class ZookeeperClass implements Watcher {
         );
 
         zoo.create(
-                ZookeeperAppConstants.SERVERS_NODE,
+                ZookeeperAppConstants.SERVERS_NODES,
                 Integer.toString(serverPort).getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL
@@ -32,7 +32,9 @@ public class ZookeeperClass implements Watcher {
 
             List<String> serversList = new ArrayList<>();
 
-            
+            for (String serverNode : serversNodes) {
+
+            }
 
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
