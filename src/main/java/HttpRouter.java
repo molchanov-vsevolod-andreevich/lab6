@@ -21,9 +21,9 @@ class HttpRouter extends AllDirectives {
                                 {
                                     int redirectCount = Integer.parseInt(count);
                                     if (redirectCount != 0) {
-                                        return completeOKWithFuture();
+                                        return completeOKWithFuture(curlUrl(url));
                                     } else {
-                                        return completeOKWithFuture();
+                                        return completeOKWithFuture(redirect(url, count - 1));
                                     }
                                 }))));
     }
