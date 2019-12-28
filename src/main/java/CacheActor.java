@@ -4,9 +4,10 @@ import akka.japi.pf.ReceiveBuilder;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class CacheActor extends AbstractActor {
-    private Map<String, Long> store = new HashMap<>();
+    private String[] serversList;
 
     static Props props() {
         return Props.create(CacheActor.class);
@@ -29,15 +30,6 @@ public class CacheActor extends AbstractActor {
     }
 
     static class GetMessage {
-        private final String url;
-
-        GetMessage(String count) {
-            this.url = url;
-        }
-
-        String getUrl() {
-            return url;
-        }
     }
 
 }
