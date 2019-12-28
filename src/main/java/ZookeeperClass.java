@@ -18,7 +18,7 @@ public class ZookeeperClass implements Watcher {
 
         zoo.create(
                 ZookeeperAppConstants.SERVERS_NODE,
-                serverPort.toString().getBytes(),
+                Integer.toString(serverPort).getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL
         );
