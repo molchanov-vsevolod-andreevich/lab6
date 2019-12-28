@@ -10,7 +10,7 @@ public class ZookeeperClass {
         zooKeeper = new ZooKeeper(
                 ZookeeperAppConstants.ZOOKEEPER_SERVER + ":" + ZookeeperAppConstants.ZOOKEEPER_PORT,
                 ZookeeperAppConstants.ZOOKEEPER_SESSION_TIMEOUT,
-
+                watchedEvent -> 
         )
     }
 }
