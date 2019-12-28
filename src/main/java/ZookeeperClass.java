@@ -17,7 +17,7 @@ public class ZookeeperClass implements Watcher {
                 this
         );
 
-        zoo.create(/servers/s)
+        zoo.create("/servers/s")
     }
 
     @Override
