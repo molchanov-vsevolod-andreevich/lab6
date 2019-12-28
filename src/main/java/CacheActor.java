@@ -19,7 +19,7 @@ public class CacheActor extends AbstractActor {
         return ReceiveBuilder.create()
                 .match(Servers.class, req -> {
                     System.out.println(ZookeeperAppConstants.WATCHER_MESSAGE);
-                    
+                    serversList = req.getServersList();
                 })
                 .match(CacheActor.GetRandomServer.class, msg -> {
                     int randServerIdx = new Random().nextInt(serversList.size());
