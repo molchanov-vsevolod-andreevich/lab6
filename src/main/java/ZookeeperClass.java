@@ -6,16 +6,18 @@ import org.apache.zookeeper.ZooKeeper;
 import java.io.IOException;
 
 public class ZookeeperClass implements Watcher {
-    private ZooKeeper zooKeeper;
+    private ZooKeeper zoo;
     private ActorRef cacheActor;
 
     public ZookeeperClass(ActorRef cacheActor) throws IOException {
         this.cacheActor = cacheActor;
-        zooKeeper = new ZooKeeper(
+        zoo = new ZooKeeper(
                 ZookeeperAppConstants.ZOOKEEPER_SERVER + ":" + ZookeeperAppConstants.ZOOKEEPER_PORT,
                 ZookeeperAppConstants.ZOOKEEPER_SESSION_TIMEOUT,
                 this
         );
+
+        zoo.create()
     }
 
     @Override
