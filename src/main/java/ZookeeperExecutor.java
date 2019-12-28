@@ -33,10 +33,11 @@ public class ZookeeperExecutor implements Watcher {
             List<String> serversList = new ArrayList<>();
 
             for (String s : serversNodes) {
-                byte[] data = zoo.getData(ZookeeperAppConstants.SERVERS_NODES_PATH + s, false, null);
-                
+                byte[] server = zoo.getData(ZookeeperAppConstants.SERVERS_NODES_PATH + s, false, null);
+                serversList.add(new String(server));
             }
 
+            cacheActor.tell(new Servers(serversList), ActorRef.noSender());
         } catch (KeeperException | InterruptedException e) {
             e.printStackTrace();
         }
