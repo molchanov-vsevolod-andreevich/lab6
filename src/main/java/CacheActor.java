@@ -3,11 +3,12 @@ import akka.actor.Props;
 import akka.japi.pf.ReceiveBuilder;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
 public class CacheActor extends AbstractActor {
-    private String[] serversList;
+    private List<String> serversList;
 
     static Props props() {
         return Props.create(CacheActor.class);
@@ -22,9 +23,10 @@ public class CacheActor extends AbstractActor {
                     store.put(url, result);
                 })
                 .match(CacheActor.GetMessage.class, msg -> {
-                    String url = msg.getUrl();
-                    Long result = store.get(url);
-                    sender().tell(new ResultPing(url, result), self());
+                    int randServerIdx = new Random().nextInt(serversList.size());
+                    String randServer = serversList.get(randServerIdx);
+                    System.out.println("Redirect to " + randServer);
+                    sender().tell(randServer, self());
                 })
                 .build();
     }
