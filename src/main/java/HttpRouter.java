@@ -1,10 +1,13 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.marshallers.jackson.Jackson;
+import akka.http.javadsl.model.RequestEntity;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.pattern.Patterns;
 import scala.concurrent.Future;
+
+import java.util.concurrent.CompletionStage;
 
 class HttpRouter extends AllDirectives {
     private final ActorRef cacheActor;
@@ -23,8 +26,16 @@ class HttpRouter extends AllDirectives {
                                     if (redirectCount != 0) {
                                         return completeOKWithFuture(curlUrl(url));
                                     } else {
-                                        return completeOKWithFuture(redirect(url, count - 1));
+                                        return completeOKWithFuture(redirect(url, count));
                                     }
                                 }))));
+    }
+
+    private CompletionStage<RequestEntity> curlUrl(String url) {
+        return
+    }
+
+    private CompletionStage<RequestEntity> redirect(String url, String count) {
+
     }
 }
