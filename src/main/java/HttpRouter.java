@@ -1,13 +1,11 @@
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.http.javadsl.Http;
-import akka.http.javadsl.marshallers.jackson.Jackson;
 import akka.http.javadsl.model.*;
 import akka.http.javadsl.server.AllDirectives;
 import akka.http.javadsl.server.Route;
 import akka.japi.Pair;
 import akka.pattern.Patterns;
-import scala.concurrent.Future;
 
 import java.util.concurrent.CompletionStage;
 
@@ -26,14 +24,14 @@ class HttpRouter extends AllDirectives {
                                 {
                                     int redirectCount = Integer.parseInt(count);
                                     if (redirectCount != 0) {
-                                        return completeWithFuture(curlUrl(http, url));
+                                        return completeWithFuture(fetch(http, url));
                                     } else {
                                         return completeWithFuture(redirect(http, url, redirectCount));
                                     }
                                 }))));
     }
 
-    private CompletionStage<HttpResponse> curlUrl(Http http, String url) {
+    private CompletionStage<HttpResponse> fetch(Http http, String url) {
         return http.singleRequest(HttpRequest.create(url));
     }
 
@@ -47,7 +45,7 @@ class HttpRouter extends AllDirectives {
                             ))
                             .toString();
                     System.out.println(ZookeeperAppConstants.CURL_MESSAGE + redirectUrl);
-                    return curlUrl(http, redirectUrl);
+                    return fetch(http, redirectUrl);
                 });
     }
 }
