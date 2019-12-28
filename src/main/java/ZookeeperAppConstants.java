@@ -9,7 +9,8 @@ class ZookeeperAppConstants {
     static final String HOST = "localhost";
 
     // Zookeeper constants
-    static final int ZOOKEEPER_PORT = 2181;
+    static final String ZOOKEEPER_PORT = "2181";
+    static final String ZOOKEEPER_SERVER = 
 
     // Messages
     static final String START_MESSAGE = "start!";
