@@ -22,7 +22,7 @@ public class ZookeeperClass implements Watcher {
                 ZookeeperAppConstants.SERVERS_NODE,
                 "data".getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
-                
+                Cr
         )
     }
 
