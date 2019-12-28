@@ -7,7 +7,7 @@ public class ZookeeperClass implements Watcher {
     private ZooKeeper zoo;
     private ActorRef cacheActor;
 
-    public ZookeeperClass(ActorRef cacheActor) throws IOException {
+    public ZookeeperClass(ActorRef cacheActor) throws IOException, KeeperException, InterruptedException {
         this.cacheActor = cacheActor;
         zoo = new ZooKeeper(
                 ZookeeperAppConstants.ZOOKEEPER_SERVER + ":" + ZookeeperAppConstants.ZOOKEEPER_PORT,
