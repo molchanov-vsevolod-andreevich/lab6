@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="36eec3a7-789d-4c2f-99d3-4a8483a00159" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/ZookeeperClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ZookeeperClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ZookeeperAppConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ZookeeperAppConstants.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
