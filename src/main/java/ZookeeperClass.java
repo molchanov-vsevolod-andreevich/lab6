@@ -17,7 +17,10 @@ public class ZookeeperClass implements Watcher {
                 this
         );
 
-        zoo.create(ZookeeperAppConstants.SERVERS_NODE)
+        zoo.create(
+                ZookeeperAppConstants.SERVERS_NODE,
+                
+        )
     }
 
     @Override
