@@ -5,11 +5,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ZookeeperClass implements Watcher {
+public class ZookeeperExecutor implements Watcher {
     private ZooKeeper zoo;
     private ActorRef cacheActor;
 
-    public ZookeeperClass(ActorRef cacheActor, int serverPort) throws IOException, KeeperException, InterruptedException {
+    public ZookeeperExecutor(ActorRef cacheActor, int serverPort) throws IOException, KeeperException, InterruptedException {
         this.cacheActor = cacheActor;
         zoo = new ZooKeeper(
                 ZookeeperAppConstants.ZOOKEEPER_SERVER + ":" + ZookeeperAppConstants.ZOOKEEPER_PORT,
@@ -18,7 +18,7 @@ public class ZookeeperClass implements Watcher {
         );
 
         zoo.create(
-                ZookeeperAppConstants.SERVERS_NODES,
+                ZookeeperAppConstants.SERVER_NODE,
                 Integer.toString(serverPort).getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL
@@ -28,12 +28,12 @@ public class ZookeeperClass implements Watcher {
     @Override
     public void process(WatchedEvent watchedEvent) {
         try {
-            List<String> serversNodes = zoo.getChildren("/servers", this);
+            List<String> serversNodes = zoo.getChildren(ZookeeperAppConstants.SERVERS_NODE, this);
 
             List<String> serversList = new ArrayList<>();
 
             for (String serverNode : serversNodes) {
-
+                
             }
 
         } catch (KeeperException | InterruptedException e) {
