@@ -16,6 +16,10 @@ class HttpRouter extends AllDirectives {
         cacheActor = system.actorOf(CacheActor.props(), ZookeeperAppConstants.CACHE_ACTOR_NAME);
     }
 
+    public ActorRef getCacheActor() {
+        return cacheActor;
+    }
+
     Route createRoute(Http http) {
         return route(
             get(() ->

@@ -30,9 +30,9 @@ public class ZookeeperApp {
         final Http http = Http.get(system);
         final ActorMaterializer materializer = ActorMaterializer.create(system);
 
-
-
         HttpRouter instance = new HttpRouter(system);
+
+        ZookeeperClass zookeeper = new ZookeeperClass(instance.getCacheActor());
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow =
                 instance.createRoute(http).flow(system, materializer);
