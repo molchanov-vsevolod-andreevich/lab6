@@ -12,7 +12,9 @@ class ZookeeperAppConstants {
     static final String ZOOKEEPER_PORT = "2181";
     static final String ZOOKEEPER_SERVER = "127.0.0.1";
     static final int ZOOKEEPER_SESSION_TIMEOUT = 5000;
-    static final String SERVERS_NODES = "/servers";
+    static final String SERVERS_NODE = "/servers";
+    static final String SERVERS_NODES_PATH = SERVERS_NODE + "/";
+    static final String SERVER_NODE = SERVERS_NODES_PATH + "s";
 
     // Messages
     static final String START_MESSAGE = "start!";
