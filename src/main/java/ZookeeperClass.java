@@ -9,6 +9,7 @@ public class ZookeeperClass {
         this.cacheActor = cacheActor;
         zooKeeper = new ZooKeeper(
                 ZookeeperAppConstants.ZOOKEEPER_SERVER + ":" + ZookeeperAppConstants.ZOOKEEPER_PORT,
+                ZookeeperAppConstants.ZOOKEEPER_SESSION_TIMEOUT,
                 
         )
     }

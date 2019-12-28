@@ -11,6 +11,7 @@ class ZookeeperAppConstants {
     // Zookeeper constants
     static final String ZOOKEEPER_PORT = "2181";
     static final String ZOOKEEPER_SERVER = "127.0.0.1";
+    static final int ZOOKEEPER_SESSION_TIMEOUT = 5000;
 
     // Messages
     static final String START_MESSAGE = "start!";
