@@ -21,7 +21,7 @@ class HttpRouter extends AllDirectives {
                                 {
                                     int redirectCount = Integer.parseInt(count);
                                     if (redirectCount != 0) {
-                                        String newUrl =  
+                                        return complete()
                                     }
                                 }))));
     }
