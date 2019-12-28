@@ -17,11 +17,11 @@ public class CacheActor extends AbstractActor {
     @Override
     public Receive createReceive() {
         return ReceiveBuilder.create()
-                .match(ResultPing.class, req -> {
-                    String url = req.getUrl();
-                    Long result = req.getPing();
-                    store.put(url, result);
-                })
+//                .match(ResultPing.class, req -> {
+//                    String url = req.getUrl();
+//                    Long result = req.getPing();
+//                    store.put(url, result);
+//                })
                 .match(CacheActor.GetRandomServer.class, msg -> {
                     int randServerIdx = new Random().nextInt(serversList.size());
                     String randServer = serversList.get(randServerIdx);
