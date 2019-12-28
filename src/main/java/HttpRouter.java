@@ -41,7 +41,7 @@ class HttpRouter extends AllDirectives {
                 .thenCompose(randServer -> {
                     String redirectUrl = Uri.create(randServer)
                             .query(Query.create(
-                                    
+
                             ))
                     return curlUrl(http, redirectUrl);
                 })
