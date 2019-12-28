@@ -23,7 +23,7 @@ public class ZookeeperApp {
         HttpRouter instance = new HttpRouter(system);
 
         final Flow<HttpRequest, HttpResponse, NotUsed> routeFlow =
-                instance.createRoute().flow(system, materializer);
+                instance.createRoute(http).flow(system, materializer);
         final CompletionStage<ServerBinding> binding = http.bindAndHandle(
                 routeFlow,
                 ConnectHttp.toHost(ZookeeperAppConstants.HOST, ZookeeperAppConstants.PORT),
