@@ -21,7 +21,8 @@ public class ZookeeperClass implements Watcher {
         zoo.create(
                 ZookeeperAppConstants.SERVERS_NODE,
                 "data".getBytes(),
-                ZooDefs.Ids.
+                ZooDefs.Ids.OPEN_ACL_UNSAFE,
+                
         )
     }
 
