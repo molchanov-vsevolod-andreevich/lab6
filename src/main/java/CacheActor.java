@@ -31,7 +31,7 @@ public class CacheActor extends AbstractActor {
     static class GetMessage {
         private final String url;
 
-        GetMessage(String url) {
+        GetMessage(String count) {
             this.url = url;
         }
 
