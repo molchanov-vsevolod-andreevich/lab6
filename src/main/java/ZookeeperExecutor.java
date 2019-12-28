@@ -33,7 +33,7 @@ public class ZookeeperExecutor implements Watcher {
             List<String> serversList = new ArrayList<>();
 
             for (String serverNode : serversNodes) {
-                
+                byte[] data 
             }
 
         } catch (KeeperException | InterruptedException e) {
