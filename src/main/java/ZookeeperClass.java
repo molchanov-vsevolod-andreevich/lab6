@@ -7,6 +7,7 @@ public class ZookeeperClass {
 
     public ZookeeperClass(ActorRef cacheActor) {
         this.cacheActor = cacheActor;
-        zooKeeper = new ZooKeeper(ZookeeperAppConstants.ZOOKEEPER_SERVER)
+        zooKeeper = new ZooKeeper(ZookeeperAppConstants.ZOOKEEPER_SERVER + ":" + ZookeeperAppConstants.ZOOKEEPER_PORT,
+                )
     }
 }
