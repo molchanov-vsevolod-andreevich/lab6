@@ -17,9 +17,11 @@ public class ZookeeperExecutor implements Watcher {
                 this
         );
 
+        String serverUrl = ZookeeperAppConstants. Integer.toString(serverPort);
+
         zoo.create(
                 ZookeeperAppConstants.SERVER_NODE,
-                Integer.toString(serverPort).getBytes(),
+                .getBytes(),
                 ZooDefs.Ids.OPEN_ACL_UNSAFE,
                 CreateMode.EPHEMERAL_SEQUENTIAL
         );
